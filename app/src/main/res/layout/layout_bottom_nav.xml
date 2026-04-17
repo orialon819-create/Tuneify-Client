@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_nav_container"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="18dp"
+    android:background="@drawable/glass_card"
+    android:orientation="horizontal"
+    android:weightSum="5"
+    android:gravity="center"
+    android:elevation="8dp">
+
+    <ImageView
+        android:id="@+id/nav_home"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:src="@drawable/home_icon"
+        app:tint="#B3FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/nav_search"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:src="@drawable/search_icon"
+        app:tint="#B3FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/nav_create"
+        android:layout_width="0dp"
+        android:layout_height="26dp"
+        android:layout_weight="1"
+        android:src="@drawable/add_icon"
+        app:tint="#FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/nav_library"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:src="@drawable/library_icon"
+        app:tint="#B3FFFFFF"/>
+
+    <ImageView
+        android:id="@+id/nav_mood"
+        android:layout_width="0dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:src="@drawable/mood_icon"
+        app:tint="#B3FFFFFF"/>
+
+</LinearLayout>
