@@ -11,30 +11,36 @@ import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.NetworkConfig
 import com.example.tuneify_final_project.ui.models.Playlist
 
-class PlaylistSelectionAdapter(
+/**
+ * Adapter for the 3-column library grid (matches Spotify "Your Library" style).
+ * Uses item_library_playlist.xml which shows a square cover + name + subtitle.
+ */
+class LibraryPlaylistAdapter(
     private val playlists: List<Playlist>,
     private val onPlaylistSelected: (Playlist) -> Unit
-) : RecyclerView.Adapter<PlaylistSelectionAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<LibraryPlaylistAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvName: TextView = view.findViewById(R.id.tv_playlist_name)
         val ivCover: ImageView = view.findViewById(R.id.iv_playlist_item_cover)
+        val tvName: TextView = view.findViewById(R.id.tv_playlist_name)
+        val tvSubtitle: TextView = view.findViewById(R.id.tv_playlist_subtitle)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_playlist_selection, parent, false)
+            .inflate(R.layout.item_library_playlist, parent, false)
+
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val playlist = playlists[position]
         holder.tvName.text = playlist.name
+        holder.tvSubtitle.text = "Playlist • You"
 
-        // Using the /covers/playlist/ path defined in your FastAPI server
         if (!playlist.coverUrl.isNullOrEmpty() && playlist.coverUrl != "null") {
-            val imageUrl = "http://${NetworkConfig.serverIp}:8000/covers/playlist/${playlist.coverUrl}"
-
+            val imageUrl =
+                "http://${NetworkConfig.serverIp}:8000/covers/playlist/${playlist.coverUrl}"
             Glide.with(holder.ivCover.context)
                 .load(imageUrl)
                 .centerCrop()
@@ -45,9 +51,7 @@ class PlaylistSelectionAdapter(
             holder.ivCover.setImageResource(R.drawable.add_playlist_cover)
         }
 
-        holder.itemView.setOnClickListener {
-            onPlaylistSelected(playlist)
-        }
+        holder.itemView.setOnClickListener { onPlaylistSelected(playlist) }
     }
 
     override fun getItemCount() = playlists.size

@@ -32,12 +32,14 @@ import java.io.IOException
 import com.example.tuneify_final_project.ui.NetworkConfig
 import com.example.tuneify_final_project.ui.utils.NavigationUtils
 import com.example.tuneify_final_project.ui.utils.PlaybackUtils
+import com.example.tuneify_final_project.ui.adapters.SelectableSongAdapter
+
 
 
 
 class CreatePlaylistActivity : AppCompatActivity() {
 
-    private lateinit var songAdapter: SongAdapter
+    private lateinit var songAdapter: SelectableSongAdapter
     private val allSearchResults = mutableListOf<Song>()
     private var currentUserId: Int = -1
     private var currentUserFirstName: String = ""
@@ -84,7 +86,7 @@ class CreatePlaylistActivity : AppCompatActivity() {
 
         btnSelectCover.setOnClickListener { showImagePickerOptions() }
 
-        songAdapter = SongAdapter(allSearchResults)
+        songAdapter = SelectableSongAdapter(allSearchResults)
         rvSongs.layoutManager = LinearLayoutManager(this)
         rvSongs.adapter = songAdapter
 
