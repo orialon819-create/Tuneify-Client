@@ -33,6 +33,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        PlaybackUtils.bind(this)
+
         NavigationUtils.setupBottomNav(this)
         val sharedPref = getSharedPreferences("TuneifyPrefs", MODE_PRIVATE)
         currentUserId = sharedPref.getInt("USER_ID", -1)

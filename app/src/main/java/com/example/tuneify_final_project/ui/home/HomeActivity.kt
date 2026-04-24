@@ -23,6 +23,7 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_home)
         NavigationUtils.setupBottomNav(this)
+        PlaybackUtils.bind(this)
 
         val sharedPref = getSharedPreferences("TuneifyPrefs", MODE_PRIVATE)
         val firstName = sharedPref.getString("USER_FIRST_NAME", "User")
@@ -49,7 +50,7 @@ class HomeActivity : AppCompatActivity() {
             PlaybackUtils.updateUI(this)
         } else {
             // This hides it if nothing has ever been played
-            findViewById<View>(R.id.now_playing_bar_include)?.visibility = View.GONE
+            findViewById<View>(R.id.cv_now_playing_bar)?.visibility = View.GONE
         }
     }
 }

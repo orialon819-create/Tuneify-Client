@@ -15,8 +15,13 @@ object MusicPlayerManager {
     private var mediaPlayer: MediaPlayer? = null
 
     val isPlaying: Boolean
-        get() = mediaPlayer?.isPlaying == true
+        get() = try {
+            mediaPlayer?.isPlaying == true
+        } catch (e: Exception) {
+            false
+        }
 
+    // Keyed listeners — each screen registers once by its class name
     private val listeners = mutableMapOf<String, () -> Unit>()
 
     fun addListener(key: String, listener: () -> Unit) {
@@ -28,10 +33,10 @@ object MusicPlayerManager {
     }
 
     private fun notifyChange() {
-        listeners.values.forEach { it.invoke() }
+        listeners.values.toList().forEach { it.invoke() }
     }
 
-    // ───────────────────────────────────────────────
+    // ── Playback ─────────────────────────────────────────────────────────────
 
     fun playPlaylist(songs: List<Song>, startIndex: Int = 0) {
         if (songs.isEmpty()) return
@@ -39,9 +44,12 @@ object MusicPlayerManager {
         playFromIndex(startIndex)
     }
 
+    fun getPlayer(): MediaPlayer? = mediaPlayer
+
     private fun playFromIndex(index: Int) {
         if (index >= currentPlaylist.size) {
-            release()
+            // Playlist finished — clear everything
+            releasePlayer()
             currentSongTitle = null
             currentArtist = null
             currentCoverUrl = null
@@ -51,47 +59,49 @@ object MusicPlayerManager {
 
         currentIndex = index
         val song = currentPlaylist[index]
-
         currentSongTitle = song.title
         currentArtist = song.artist
         currentCoverUrl = song.coverUrl
 
-        notifyChange() // 🔥 important: update UI immediately
+        val url = "http://${NetworkConfig.serverIp}:8000/stream/" +
+                song.title.replace(" ", "%20")
 
-        val url = "http://${NetworkConfig.serverIp}:8000/stream/${song.id}"
+        // KEY FIX: release the old player first, then create the new one.
+        // Previously release() set mediaPlayer = null before setOnCompletionListener
+        // had a chance to fire, breaking the auto-advance chain.
+        releasePlayer()
 
-        release()
+        val mp = MediaPlayer()
+        mediaPlayer = mp
 
-        mediaPlayer = MediaPlayer().apply {
-            setDataSource(url)
+        mp.setDataSource(url)
+        mp.prepareAsync()
 
-            setOnPreparedListener {
-                it.start()
-                notifyChange()
-            }
+        mp.setOnPreparedListener { player ->
+            player.start()
+            notifyChange()
+        }
 
-            setOnCompletionListener {
-                playFromIndex(index + 1)
-            }
+        // Auto-advance: when this song ends, play the next one
+        mp.setOnCompletionListener {
+            playFromIndex(index + 1)
+        }
 
-            setOnErrorListener { _, _, _ ->
-                notifyChange()
-                true
-            }
-
-            prepareAsync()
+        mp.setOnErrorListener { _, _, _ ->
+            notifyChange()
+            true
         }
     }
 
     fun togglePlayPause() {
-        mediaPlayer?.let {
-            if (it.isPlaying) it.pause() else it.start()
-            notifyChange()
-        }
+        val mp = mediaPlayer ?: return
+        if (mp.isPlaying) mp.pause() else mp.start()
+        notifyChange()
     }
 
-    fun release() {
-        mediaPlayer?.release()
+    // Private helper — releases safely without breaking the completion chain
+    private fun releasePlayer() {
+        try { mediaPlayer?.release() } catch (_: Exception) {}
         mediaPlayer = null
     }
 }

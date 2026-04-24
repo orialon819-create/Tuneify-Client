@@ -67,6 +67,8 @@ class CreatePlaylistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_playlist)
 
+        PlaybackUtils.bind(this)
+
         val sharedPref = getSharedPreferences("TuneifyPrefs", MODE_PRIVATE)
         currentUserId = sharedPref.getInt("USER_ID", -1)
         currentUserFirstName = sharedPref.getString("USER_FIRST_NAME", "") ?: ""

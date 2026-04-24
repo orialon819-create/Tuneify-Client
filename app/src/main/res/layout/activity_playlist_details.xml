@@ -1,112 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_gradient">
 
-    <LinearLayout
+    <!-- APP BAR (COLLAPSING HEADER) -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="300dp"
+        android:background="@android:color/transparent"
+        app:elevation="0dp">
 
-        <!-- TOP BAR -->
-        <RelativeLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:paddingHorizontal="16dp"
-            android:gravity="center_vertical">
+            android:layout_height="match_parent"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:contentScrim="@drawable/bg_main_gradient">
 
+            <!-- COVER IMAGE -->
+            <ImageView
+                android:id="@+id/iv_detail_cover"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/add_playlist_cover"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"/>
+
+            <!-- BACK BUTTON -->
             <ImageView
                 android:id="@+id/btn_back"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:layout_margin="16dp"
                 android:src="@drawable/back_icon"
-                app:tint="#FFFFFF" />
-        </RelativeLayout>
+                app:tint="#FFFFFF"
+                app:layout_collapseMode="pin"/>
 
-        <!-- CENTERED COVER -->
-        <ImageView
-            android:id="@+id/iv_detail_cover"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/add_playlist_cover" />
-
-        <!-- TITLE + PLAY BUTTON (FIXED ROW) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp">
-
-            <!-- TITLE -->
-            <TextView
-                android:id="@+id/tv_detail_title"
-                android:layout_width="0dp"
+            <!-- TITLE + PLAY BUTTON (STAYS WHEN COLLAPSED) -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="16dp"
+                app:layout_collapseMode="pin">
 
-            <!-- PLAY / PAUSE BUTTON -->
-            <ImageView
-                android:id="@+id/btn_play_playlist"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@drawable/play_icon"
-                android:contentDescription="Play playlist"
-                android:clickable="true"
-                android:focusable="true"
-                android:padding="8dp" />
+                <TextView
+                    android:id="@+id/tv_detail_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/btn_play_playlist"
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:src="@drawable/play_icon"
+                    android:padding="6dp"
+                    app:tint="#FFFFFF"/>
+            </LinearLayout>
 
-        <!-- OPTIONAL SUBTEXT -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Playlist • You"
-            android:textColor="#B3FFFFFF"
-            android:textSize="13sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp" />
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
-        <!-- SONG LIST -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_playlist_songs"
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- SONG LIST (NO NESTED SCROLL VIEW ✅) -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_playlist_songs"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="8dp"
+        android:paddingBottom="160dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <!-- MINI PLAYER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <include
+            android:id="@+id/cv_now_playing_bar"
+            layout="@layout/layout_now_playing_bar"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:paddingTop="120dp"
-            android:clipToPadding="false"
-            android:paddingBottom="100dp"/>
+            android:layout_height="68dp"
+            android:visibility="gone"/>
+
+        <include
+            android:id="@+id/bottom_nav_container"
+            layout="@layout/layout_bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
-    <!-- MINI PLAYER -->
-    <include
-        android:id="@+id/now_playing_bar_include"
-        layout="@layout/layout_now_playing_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:layout_gravity="bottom"/>
-
-    <include
-        android:id="@+id/bottom_nav_container"
-        layout="@layout/layout_bottom_nav"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

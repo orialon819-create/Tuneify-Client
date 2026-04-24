@@ -26,6 +26,9 @@
         android:theme="@style/Theme.Tuneify_Final_Project"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.FullPlayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.library.PlaylistDetailsActivity"
             android:exported="false" />
         <activity
