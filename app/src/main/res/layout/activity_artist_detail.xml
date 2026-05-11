@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_main_gradient">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="40dp">
+
+        <!-- HERO IMAGE -->
+        <ImageView
+            android:id="@+id/iv_artist_hero"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add_playlist_cover" />
+
+        <!-- BACK BUTTON overlaid -->
+        <ImageView
+            android:id="@+id/btn_artist_back"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="-240dp"
+            android:src="@drawable/back_icon"
+            app:tint="#FFFFFF" />
+
+        <!-- NAME -->
+        <TextView
+            android:id="@+id/tv_artist_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <!-- GENRE + MONTHLY LISTENERS -->
+        <TextView
+            android:id="@+id/tv_artist_meta"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#AAFFFFFF"
+            android:textSize="13sp"
+            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <!-- BIO -->
+        <TextView
+            android:id="@+id/tv_artist_bio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#DDFFFFFF"
+            android:textSize="14sp"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="20dp"/>
+
+        <!-- POPULAR SONGS HEADER -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular Songs"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Songs list (non-scrolling, inside NestedScrollView) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_artist_songs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:paddingHorizontal="12dp"/>
+
+    </LinearLayout>
+
+</androidx.core.widget.NestedScrollView>

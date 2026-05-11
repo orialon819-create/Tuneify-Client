@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#110C02">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- ① HERO -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="520dp">
+
+            <ImageView
+                android:id="@+id/iv_hero"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/add_playlist_cover" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#88120E04" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="280dp"
+                android:layout_gravity="bottom"
+                android:background="#1A1608CC" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|start"
+                android:layout_marginTop="52dp"
+                android:layout_marginStart="20dp"
+                android:text="ARTIST SPOTLIGHT"
+                android:textColor="#FFFFFF"
+                android:textSize="11sp"
+                android:letterSpacing="0.14"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="6dp"
+                android:background="#44FFFFFF" />
+
+            <ImageView
+                android:id="@+id/btn_back"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="top|start"
+                android:layout_margin="16dp"
+                android:src="@drawable/back_icon"
+                android:background="#44000000"
+                android:padding="8dp"
+                app:tint="#FFFFFF" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_gravity="bottom" android:orientation="vertical"
+                android:paddingHorizontal="22dp" android:paddingBottom="32dp">
+                <TextView android:id="@+id/tv_artist_name"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Fleetwood Mac" android:textColor="#FFFFFF" android:textSize="52sp"
+                    android:fontFamily="sans-serif-thin" android:lineSpacingMultiplier="0.9"/>
+                <TextView android:id="@+id/tv_sub_label"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="Timeless Rock Icons" android:textColor="#C9A84C"
+                    android:textSize="15sp" android:fontFamily="sans-serif-light"
+                    android:layout_marginTop="6dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- ② INTRO CARD -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:background="#2A2208"
+            android:layout_marginHorizontal="16dp" android:layout_marginTop="-24dp"
+            android:padding="22dp">
+            <TextView android:id="@+id/tv_intro"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textColor="#E8E8E8" android:textSize="16sp"
+                android:fontFamily="sans-serif-light" android:lineSpacingMultiplier="1.7"/>
+        </LinearLayout>
+
+        <!-- ③ WHY THEY MATTER -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Why They Matter" android:textColor="#FFFFFF" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp" android:layout_marginBottom="16dp"/>
+        <LinearLayout android:id="@+id/ll_why_matter"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingHorizontal="16dp"/>
+
+        <!-- ④ DISCOGRAPHY -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Discography" android:textColor="#FFFFFF" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp" android:layout_marginBottom="16dp"/>
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_albums"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:paddingStart="16dp" android:paddingEnd="8dp"
+            android:clipToPadding="false" android:orientation="horizontal"/>
+
+        <!-- ⑤ NOTABLE TRACKS -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Notable Tracks" android:textColor="#FFFFFF" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp" android:layout_marginBottom="16dp"/>
+        <LinearLayout android:id="@+id/ll_tracks"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingHorizontal="16dp"/>
+
+        <!-- ⑥ FUN FACTS -->
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:text="Fun Facts" android:textColor="#FFFFFF" android:textSize="22sp"
+            android:fontFamily="sans-serif-light" android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp" android:layout_marginBottom="16dp"/>
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rv_facts"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:paddingStart="16dp" android:paddingEnd="8dp"
+            android:clipToPadding="false" android:orientation="horizontal"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- ⑦ FOOTER -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:background="#1A1608"
+            android:padding="28dp" android:layout_marginTop="24dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Best listened to when…" android:textColor="#C9A84C"
+                android:textSize="11sp" android:letterSpacing="0.12" android:textStyle="bold"
+                android:layout_marginBottom="10dp"/>
+            <TextView android:id="@+id/tv_footer_mood"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:textColor="#AAAAAA" android:textSize="16sp"
+                android:fontFamily="sans-serif-light" android:lineSpacingMultiplier="1.6"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

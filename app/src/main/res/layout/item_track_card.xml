@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Premium track card — large circular play button matching screenshots -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@drawable/glass_card"
+    android:paddingHorizontal="16dp"
+    android:layout_marginBottom="12dp">
+
+    <!-- Big circular play button -->
+    <FrameLayout
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="16dp">
+
+        <View
+            android:id="@+id/v_play_circle"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:background="@drawable/glass_card"/>
+
+        <ImageView
+            android:id="@+id/iv_track_play"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:src="@drawable/play_icon"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_track_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_track_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#88FFFFFF"
+            android:textSize="12sp"
+            android:layout_marginTop="3dp"
+            android:fontFamily="sans-serif-light"/>
+
+    </LinearLayout>
+</LinearLayout>

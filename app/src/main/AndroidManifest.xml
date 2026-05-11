@@ -26,6 +26,25 @@
         android:theme="@style/Theme.Tuneify_Final_Project"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.home.MazzyStarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.PinkFloydActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.RadioheadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.FleetwoodMacActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.OliviaRodrigoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.BaseArtistActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.FullPlayerActivity"
             android:exported="false" />
         <activity
@@ -38,7 +57,10 @@
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" /> <!-- ✅ NEW: Artist detail screen -->
+        <activity
+            android:name=".ui.home.ArtistDetailActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.moodify.MoodifyActivity"
             android:exported="false"
