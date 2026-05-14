@@ -5,7 +5,7 @@ import com.example.tuneify_final_project.R
 class RadioheadActivity : BaseArtistActivity() {
 
     override fun layoutRes()    = R.layout.activity_artist_radiohead
-    override fun heroImageRes() = R.drawable.add_playlist_cover  // ← swap: R.drawable.artist_radiohead
+    override fun heroImageRes() = R.drawable.radiohead_cover  // ← swap: R.drawable.artist_radiohead
     override fun artistName()   = "Radiohead"
     override fun subLabel()     = "Architects of Modern Anxiety"
     override fun accentColor()  = 0xFF2D6A9F.toInt()

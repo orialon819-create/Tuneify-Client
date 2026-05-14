@@ -5,7 +5,7 @@ import com.example.tuneify_final_project.R
 class OliviaRodrigoActivity : BaseArtistActivity() {
 
     override fun layoutRes()    = R.layout.activity_artist_olivia
-    override fun heroImageRes() = R.drawable.add_playlist_cover  // ← swap: R.drawable.artist_olivia
+    override fun heroImageRes() = R.drawable.oliviarodrigo_cover  // ← swap: R.drawable.artist_olivia
     override fun artistName()   = "Olivia Rodrigo"
     override fun subLabel()     = "Modern Pop Voice"
     override fun accentColor()  = 0xFF8B5CF6.toInt()
@@ -21,9 +21,9 @@ class OliviaRodrigoActivity : BaseArtistActivity() {
     )
 
     override fun albums() = listOf(
-        AlbumData("SOUR",  "2021", R.drawable.add_playlist_cover,
+        AlbumData("SOUR",  "2021", R.drawable.sour_cover,
             listOf("drivers license", "good 4 u", "deja vu")),
-        AlbumData("GUTS",  "2023", R.drawable.add_playlist_cover,
+        AlbumData("GUTS",  "2023", R.drawable.guts_cover,
             listOf("vampire", "bad idea right?", "get him back!"))
     )
 

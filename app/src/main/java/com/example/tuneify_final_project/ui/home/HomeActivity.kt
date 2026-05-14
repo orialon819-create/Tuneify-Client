@@ -134,11 +134,11 @@ class HomeActivity : AppCompatActivity() {
         data class ArtistCard(val name: String, val genre: String, val photoRes: Int, val activityClass: Class<*>)
 
         val artists = listOf(
-            ArtistCard("Olivia Rodrigo", "Modern Pop",        R.drawable.add_playlist_cover, OliviaRodrigoActivity::class.java),
-            ArtistCard("Fleetwood Mac",  "Classic Rock",      R.drawable.add_playlist_cover, FleetwoodMacActivity::class.java),
-            ArtistCard("Radiohead",      "Alt / Experimental",R.drawable.add_playlist_cover, RadioheadActivity::class.java),
-            ArtistCard("Pink Floyd",     "Psychedelic Rock",  R.drawable.add_playlist_cover, PinkFloydActivity::class.java),
-            ArtistCard("Mazzy Star",     "Dream Pop",         R.drawable.add_playlist_cover, MazzyStarActivity::class.java)
+            ArtistCard("Olivia Rodrigo", "Modern Pop",        R.drawable.oliviarodrigo_cover, OliviaRodrigoActivity::class.java),
+            ArtistCard("Fleetwood Mac",  "Classic Rock",      R.drawable.fleetwoodmac_cover, FleetwoodMacActivity::class.java),
+            ArtistCard("Radiohead",      "Alt / Experimental",R.drawable.radiohead_cover, RadioheadActivity::class.java),
+            ArtistCard("Pink Floyd",     "Psychedelic Rock",  R.drawable.pinkfloyd_cover, PinkFloydActivity::class.java),
+            ArtistCard("Mazzy Star",     "Dream Pop",         R.drawable.mazzystar_cover, MazzyStarActivity::class.java)
         )
 
         // Use a simple data class that ArtistSpotlightAdapter already handles

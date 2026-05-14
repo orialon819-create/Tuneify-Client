@@ -5,7 +5,7 @@ import com.example.tuneify_final_project.R
 class MazzyStarActivity : BaseArtistActivity() {
 
     override fun layoutRes()    = R.layout.activity_artist_mazzystar
-    override fun heroImageRes() = R.drawable.add_playlist_cover  // ← swap: R.drawable.artist_mazzystar
+    override fun heroImageRes() = R.drawable.mazzystar_cover  // ← swap: R.drawable.artist_mazzystar
     override fun artistName()   = "Mazzy Star"
     override fun subLabel()     = "Dream Pop Mystics"
     override fun accentColor()  = 0xFF7B6FA0.toInt()
@@ -21,11 +21,11 @@ class MazzyStarActivity : BaseArtistActivity() {
     )
 
     override fun albums() = listOf(
-        AlbumData("So Tonight That I Might See", "1993", R.drawable.add_playlist_cover,
+        AlbumData("So Tonight That I Might See", "1993", R.drawable.sotonight_cover,
             listOf("Fade Into You", "Bells Ring", "Mary of Silence")),
-        AlbumData("Among My Swan",               "1996", R.drawable.add_playlist_cover,
+        AlbumData("Among My Swan",               "1996", R.drawable.amongmyswan_cover,
             listOf("Flowers in December", "Disappear", "Into Dust")),
-        AlbumData("She Hangs Brightly",          "1990", R.drawable.add_playlist_cover,
+        AlbumData("She Hangs Brightly",          "1990", R.drawable.shehangs_cover,
             listOf("Halah", "Blue Flower", "Give You My Lovin'"))
     )
 

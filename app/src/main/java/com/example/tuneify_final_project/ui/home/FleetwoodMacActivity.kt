@@ -5,7 +5,7 @@ import com.example.tuneify_final_project.R
 class FleetwoodMacActivity : BaseArtistActivity() {
 
     override fun layoutRes()    = R.layout.activity_artist_fleetwood
-    override fun heroImageRes() = R.drawable.add_playlist_cover  // ← swap: R.drawable.artist_fleetwood
+    override fun heroImageRes() = R.drawable.fleetwoodmac_cover  // ← swap: R.drawable.artist_fleetwood
     override fun artistName()   = "Fleetwood Mac"
     override fun subLabel()     = "Timeless Rock Icons"
     override fun accentColor()  = 0xFFB8902A.toInt()
@@ -21,11 +21,11 @@ class FleetwoodMacActivity : BaseArtistActivity() {
     )
 
     override fun albums() = listOf(
-        AlbumData("Rumours",           "1977", R.drawable.add_playlist_cover,
+        AlbumData("Rumours",           "1977", R.drawable.rumors_cover,
             listOf("Go Your Own Way", "Dreams", "The Chain")),
-        AlbumData("Tango in the Night","1987", R.drawable.add_playlist_cover,
+        AlbumData("Tango in the Night","1987", R.drawable.tangointhenight,
             listOf("Big Love", "Little Lies", "Everywhere")),
-        AlbumData("Fleetwood Mac",     "1975", R.drawable.add_playlist_cover,
+        AlbumData("Fleetwood Mac",     "1975", R.drawable.fleetwoodmacalbum_cover,
             listOf("Rhiannon", "Landslide", "Say You Love Me"))
     )
 

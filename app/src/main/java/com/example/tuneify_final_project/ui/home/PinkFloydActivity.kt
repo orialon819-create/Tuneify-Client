@@ -5,7 +5,7 @@ import com.example.tuneify_final_project.R
 class PinkFloydActivity : BaseArtistActivity() {
 
     override fun layoutRes()    = R.layout.activity_artist_pinkfloyd
-    override fun heroImageRes() = R.drawable.add_playlist_cover  // ← swap: R.drawable.artist_pinkfloyd
+    override fun heroImageRes() = R.drawable.pinkfloyd_cover  // ← swap: R.drawable.artist_pinkfloyd
     override fun artistName()   = "Pink Floyd"
     override fun subLabel()     = "Architects of the Cosmic"
     override fun accentColor()  = 0xFF9333EA.toInt()
@@ -21,11 +21,11 @@ class PinkFloydActivity : BaseArtistActivity() {
     )
 
     override fun albums() = listOf(
-        AlbumData("The Dark Side of the Moon", "1973", R.drawable.add_playlist_cover,
+        AlbumData("The Dark Side of the Moon", "1973", R.drawable.thedarkside_cover,
             listOf("Money", "Time", "Us and Them")),
-        AlbumData("Wish You Were Here",        "1975", R.drawable.add_playlist_cover,
+        AlbumData("Wish You Were Here",        "1975", R.drawable.whishyou_cover,
             listOf("Wish You Were Here", "Shine On You Crazy Diamond")),
-        AlbumData("The Wall",                  "1979", R.drawable.add_playlist_cover,
+        AlbumData("The Wall",                  "1979", R.drawable.thewall_cover,
             listOf("Another Brick in the Wall", "Comfortably Numb", "Hey You"))
     )
 
