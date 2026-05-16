@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SCREEN 3 — Mood Result -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Dynamic gradient background — color set in code per mood -->
+    <View
+        android:id="@+id/mood_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#1A1A2E" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="28dp">
+
+        <!-- Back -->
+        <ImageView
+            android:id="@+id/btn_result_back"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/back_icon"
+            android:layout_gravity="start"
+            android:layout_marginBottom="24dp"
+            app:tint="#FFFFFF" />
+
+        <!-- Big emoji -->
+        <TextView
+            android:id="@+id/tv_mood_emoji"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="😊"
+            android:textSize="96sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Detected mood -->
+        <TextView
+            android:id="@+id/tv_mood_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Detected Mood: Happy"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Confidence -->
+        <TextView
+            android:id="@+id/tv_mood_confidence"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Confidence: 87%"
+            android:textColor="#AAFFFFFF"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginBottom="48dp"/>
+
+        <!-- Play single song -->
+        <Button
+            android:id="@+id/btn_play_song"
+            android:layout_width="260dp"
+            android:layout_height="56dp"
+            android:text="🎵  Play a Song"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/glass_card"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Generate playlist -->
+        <Button
+            android:id="@+id/btn_generate_playlist"
+            android:layout_width="260dp"
+            android:layout_height="56dp"
+            android:text="🎶  Generate Playlist"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:background="@drawable/glass_card"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Retake -->
+        <Button
+            android:id="@+id/btn_retake"
+            android:layout_width="260dp"
+            android:layout_height="48dp"
+            android:text="🔄  Retake"
+            android:textColor="#AAFFFFFF"
+            android:textSize="14sp"
+            android:background="@android:color/transparent"/>
+
+    </LinearLayout>
+</FrameLayout>

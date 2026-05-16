@@ -26,6 +26,18 @@
         android:theme="@style/Theme.Tuneify_Final_Project"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.moodify.MoodSingleSongActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.moodify.MoodPlaylistActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.moodify.MoodResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.moodify.MoodCameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.MazzyStarActivity"
             android:exported="false" />
         <activity
@@ -43,7 +55,6 @@
         <activity
             android:name=".ui.home.BaseArtistActivity"
             android:exported="false" />
-
         <activity
             android:name=".ui.FullPlayerActivity"
             android:exported="false" />
