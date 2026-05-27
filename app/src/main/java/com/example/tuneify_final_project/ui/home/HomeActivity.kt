@@ -33,10 +33,21 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_home)
 
+        intent.getStringExtra("SESSION_TOKEN")?.let {
+            SocketManager.setSessionToken(it)
+        }
+
         NavigationUtils.setupBottomNav(this)
         PlaybackUtils.bind(this)
 
-        val sharedPref   = getSharedPreferences("TuneifyPrefs", MODE_PRIVATE)
+
+        val sharedPref = getSharedPreferences("TuneifyPrefs", MODE_PRIVATE)
+        val savedToken = sharedPref.getString("SESSION_TOKEN", null)
+        if (savedToken != null) {
+            SocketManager.setSessionToken(savedToken)
+            android.util.Log.d("HOME_DEBUG", "Token restored: $savedToken")
+        }
+
         currentUserId    = sharedPref.getInt("USER_ID", -1)
         val firstName    = sharedPref.getString("USER_FIRST_NAME", "User")
 

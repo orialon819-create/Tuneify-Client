@@ -46,26 +46,36 @@ class LoginActivity : AppCompatActivity() {
                 SocketManager.sendCommand("LOGIN", params) { response ->
                     if (response != null && response.startsWith("OK|")) {
                         try {
-                            // 1. Extract the JSON string after "OK|"
-                            val jsonData = response.substringAfter("OK|")
+                            // Split into 3 parts: "OK", "{json}", "TOKEN:abc"
+                            val parts = response.split("|")
+                            val jsonData = parts[1]
+                            val token = parts[2].removePrefix("TOKEN:")
+
+                            // Save token for all future requests
+                            SocketManager.setSessionToken(token)
+
                             val userObj = JSONObject(jsonData)
 
-                            // 2. Open SharedPreferences to store the info
                             val sharedPref = getSharedPreferences("TuneifyPrefs", MODE_PRIVATE)
                             with(sharedPref.edit()) {
+                                putString("SESSION_TOKEN", token)
                                 putInt("USER_ID", userObj.optInt("id", -1))
                                 putString("USER_FIRST_NAME", userObj.optString("first_name"))
                                 putString("USER_LAST_NAME", userObj.optString("last_name"))
                                 putString("USER_EMAIL", userObj.optString("email"))
                                 putString("USERNAME", userObj.optString("username"))
+                                  // add this line
                                 apply()
+
                             }
 
                             Toast.makeText(this, "Welcome back, ${userObj.getString("first_name")}!", Toast.LENGTH_SHORT).show()
 
-                            // 3. Move to HomeActivity
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
+                            val intent = Intent(this, HomeActivity::class.java).apply {
+                                putExtra("SESSION_TOKEN", token)  // pass it explicitly too
+                            }
+                            startActivity(intent)  // ← add this line
+
                             finish()
 
                         } catch (e: Exception) {
@@ -75,8 +85,7 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         Toast.makeText(this, "Login Failed: $response", Toast.LENGTH_SHORT).show()
                     }
-                }
-            } else {
+                }            } else {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
             }
         }
