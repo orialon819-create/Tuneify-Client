@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- SCREEN 1 — Moodify Home -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_main_gradient">
@@ -79,12 +81,26 @@
 
     </LinearLayout>
 
-    <!-- Bottom nav -->
+    <include
+        android:id="@+id/cv_now_playing_bar"
+        layout="@layout/layout_now_playing_bar"
+        android:layout_width="0dp"
+        android:layout_height="68dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/bottom_nav_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- BOTTOM NAV -->
     <include
         android:id="@+id/bottom_nav_container"
         layout="@layout/layout_bottom_nav"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-</FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
