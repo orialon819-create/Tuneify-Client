@@ -20,6 +20,11 @@ import com.google.mlkit.vision.face.FaceDetectorOptions
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
+/**
+ * MoodCameraActivity uses the device front camera and ML Kit Face Detection
+ * to analyze the user's facial expression in real time and determine their mood.
+ * It then navigates to MoodResultActivity with the detected mood.
+ */
 class MoodCameraActivity : AppCompatActivity() {
 
     private lateinit var cameraExecutor: ExecutorService
@@ -114,7 +119,8 @@ class MoodCameraActivity : AppCompatActivity() {
             )
         }, ContextCompat.getMainExecutor(this))
     }
-
+    // Input: face (Face)
+    // Output: String (detected mood)
     private fun detectMoodFromFace(face: Face): String {
         val smiling  = face.smilingProbability      ?: 0.5f
         val leftEye  = face.leftEyeOpenProbability  ?: 0.5f
@@ -131,8 +137,6 @@ class MoodCameraActivity : AppCompatActivity() {
     }
 
     private fun navigateToResult(mood: String) {
-        // FLAG_ACTIVITY_NO_HISTORY removes camera from back stack
-        // so pressing back on result goes straight to MoodifyActivity
         startActivity(Intent(this, MoodResultActivity::class.java).apply {
             putExtra("MOOD", mood)
             flags = Intent.FLAG_ACTIVITY_NO_HISTORY

@@ -43,24 +43,24 @@ class MoodResultActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_mood_label).text      = "Detected Mood: $mood"
         findViewById<TextView>(R.id.tv_mood_confidence).text = "Confidence: ${info.confidence}%"
 
-        // Back → goes to MoodifyActivity (camera already removed from stack)
+        // Back - goes to MoodifyActivity (camera already removed from stack)
         findViewById<ImageView>(R.id.btn_result_back).setOnClickListener { finish() }
 
-        // Play ONE song → dedicated single song player
+        // Play ONE song - dedicated single song player
         findViewById<Button>(R.id.btn_play_song).setOnClickListener {
             startActivity(Intent(this, MoodSingleSongActivity::class.java).apply {
                 putExtra("MOOD", mood)
             })
         }
 
-        // Generate PLAYLIST → 5-song playlist screen
+        // Generate PLAYLIST - 5-song playlist screen
         findViewById<Button>(R.id.btn_generate_playlist).setOnClickListener {
             startActivity(Intent(this, MoodPlaylistActivity::class.java).apply {
                 putExtra("MOOD", mood)
             })
         }
 
-        // Retake → back to camera (finish this, camera already gone, so goes to MoodifyActivity)
+        // Retake - back to camera
         // User taps Start again to open camera fresh
         findViewById<Button>(R.id.btn_retake).setOnClickListener { finish() }
     }

@@ -66,10 +66,7 @@
             android:name=".ui.create_playlist.CreatePlaylistActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" /> <!-- ✅ NEW: Artist detail screen -->
+       <!-- ✅ NEW: Artist detail screen -->
         <activity
             android:name=".ui.home.ArtistDetailActivity"
             android:exported="false" />

@@ -10,6 +10,10 @@ import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.SocketManager
 import org.json.JSONObject
 
+/**
+ * Activity responsible for handling "Forgot Password" flow.
+ * Allows user to enter email and request a password reset verification code.
+ */
 class ForgotPasswordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

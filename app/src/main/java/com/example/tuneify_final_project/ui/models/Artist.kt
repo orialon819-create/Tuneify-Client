@@ -5,6 +5,6 @@ data class Artist(
     val genre: String,
     val bio: String,
     val monthlyListeners: String,
-    val photoResId: Int,       // local drawable for now
-    val songs: List<Song>      // their popular songs
+    val photoResId: Int,
+    val songs: List<Song>
 )

@@ -29,7 +29,14 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
-
+/**
+ * PlaylistDetailsActivity displays all songs inside a specific playlist.
+ * It allows the user to:
+ * - Play songs in the playlist
+ * - Add or remove songs
+ * - Edit playlist name and cover image
+ * - Add songs to other playlists
+ */
 class PlaylistDetailsActivity : AppCompatActivity() {
 
     private val songsList = mutableListOf<Song>()
@@ -42,7 +49,6 @@ class PlaylistDetailsActivity : AppCompatActivity() {
 
     private var currentUserId = -1
 
-    // Used by the edit sheet to pick a new cover from gallery
     private var pendingCoverUri: Uri? = null
     private var editCoverPreview: ImageView? = null
 
@@ -110,14 +116,14 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         fetchSongs(adapter)
     }
 
-    // ── Song count ────────────────────────────────────────────────────────────
+    // Song count
 
     private fun updateSongCount() {
         val count = songsList.size
         tvSongCount.text = "$count song${if (count == 1) "" else "s"}"
     }
 
-    // ── Cover loading ─────────────────────────────────────────────────────────
+    // Cover loading
 
     private fun loadCover(filename: String?) {
         val iv = findViewById<ImageView>(R.id.iv_detail_cover)
@@ -132,7 +138,7 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         }
     }
 
-    // ── Edit playlist bottom sheet ────────────────────────────────────────────
+    //  Edit playlist bottom sheet
 
     private fun openEditSheet() {
         val sheet = BottomSheetDialog(this)
@@ -193,7 +199,8 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         sheet.setContentView(view)
         sheet.show()
     }
-
+    // Input: uri (Uri), playlistId (Int), onDone callback (String -> Unit)
+    // Output: none
     private fun uploadCover(uri: Uri, playlistId: Int, onDone: (String) -> Unit) {
         Thread {
             try {
@@ -226,7 +233,7 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         }.start()
     }
 
-    // ── Three-dot song options sheet ──────────────────────────────────────────
+    // Three-dot song options sheet
 
     private fun openSongOptionsSheet(song: Song) {
         val sheet = BottomSheetDialog(this)
@@ -298,7 +305,7 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         pickerSheet.show()
     }
 
-    // ── Playback helpers ──────────────────────────────────────────────────────
+    // Playback helpers
 
     private fun syncPlayButton() {
         if (!::btnPlay.isInitialized) return
@@ -321,7 +328,7 @@ class PlaylistDetailsActivity : AppCompatActivity() {
         MusicPlayerManager.removeListener("PlaylistDetailsPlay")
     }
 
-    // ── Fetch songs ───────────────────────────────────────────────────────────
+    // Fetch songs
 
     private fun fetchSongs(adapter: SongAdapter) {
         val params = JSONObject().put("playlist_id", playlistId)

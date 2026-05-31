@@ -18,13 +18,24 @@ import com.example.tuneify_final_project.ui.library.LibraryActivity
 import com.example.tuneify_final_project.ui.library.PlaylistDetailsActivity
 import com.example.tuneify_final_project.ui.models.Artist
 import com.example.tuneify_final_project.ui.models.Playlist
-import com.example.tuneify_final_project.ui.settings.SettingsActivity
 import com.example.tuneify_final_project.ui.utils.MusicPlayerManager
 import com.example.tuneify_final_project.ui.utils.NavigationUtils
 import com.example.tuneify_final_project.ui.utils.PlaybackUtils
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * HomeActivity is the main screen of the Tuneify application.
+ * It displays:
+ * - Welcome message for the user
+ * - Recently played playlists
+ * - "For You" recommended playlists
+ * - Artist Spotlight section
+ * - Now playing bar
+ *
+ * It also handles socket communication with the server and manages UI updates
+ * based on user session data.
+ */
 class HomeActivity : AppCompatActivity() {
 
     private var currentUserId = -1
@@ -53,11 +64,8 @@ class HomeActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tv_home_welcome).text = "Welcome back, $firstName!"
 
-        findViewById<ImageView>(R.id.iv_home_settings).setOnClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
-        }
 
-        // "See all" → Library
+
         findViewById<TextView>(R.id.tv_see_all).setOnClickListener {
             startActivity(Intent(this, LibraryActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
@@ -69,7 +77,7 @@ class HomeActivity : AppCompatActivity() {
         fetchRecentPlaylists()
     }
 
-    // ── Recently Played ───────────────────────────────────────────────────────
+    // Recently Played Playlists
 
     private fun fetchRecentPlaylists() {
         if (currentUserId == -1) return
@@ -93,7 +101,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // ── For You (static, same for every user) ────────────────────────────────
+    // For You Playlists
 
     private fun setupForYou() {
         val params = JSONObject().put("user_id", currentUserId)
@@ -137,9 +145,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // ── Artist Spotlight (static data) ───────────────────────────────────────
-
-    // REPLACE your setupArtistSpotlight() in HomeActivity with this:
+    // Artist Spotlight
 
     private fun setupArtistSpotlight() {
         data class ArtistCard(val name: String, val genre: String, val photoRes: Int, val activityClass: Class<*>)
@@ -152,7 +158,6 @@ class HomeActivity : AppCompatActivity() {
             ArtistCard("Mazzy Star",     "Dream Pop",         R.drawable.mazzystar_cover, MazzyStarActivity::class.java)
         )
 
-        // Use a simple data class that ArtistSpotlightAdapter already handles
         val artistModels = artists.map { Artist(it.name, it.genre, "", "", it.photoRes, emptyList()) }
 
         val rv = findViewById<RecyclerView>(R.id.rv_artist_spotlight)
@@ -163,8 +168,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // ── Helpers ───────────────────────────────────────────────────────────────
 
+    // Input: json (String)
+    // Output: List<Playlist>
     private fun parsePlaylists(json: String): List<Playlist> {
         val list = mutableListOf<Playlist>()
         try {
@@ -188,7 +194,7 @@ class HomeActivity : AppCompatActivity() {
         } else {
             findViewById<View>(R.id.cv_now_playing_bar)?.visibility = View.GONE
         }
-        fetchRecentPlaylists()   // refresh on return from library
+        fetchRecentPlaylists()
     }
 
     override fun onDestroy() {

@@ -16,6 +16,10 @@ import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.SocketManager
 import org.json.JSONObject
 
+/**
+ * Register screen for Tuneify application.
+ * Handles user sign-up and navigation back to login screen.
+ */
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,6 +63,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    //Input: TextView
+    //Output: void
     private fun setupSignInLink(textView: TextView) {
         val text = "Already have an account? Sign in"
         val spannable = SpannableString(text)

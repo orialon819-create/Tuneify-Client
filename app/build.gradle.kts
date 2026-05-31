@@ -44,7 +44,7 @@ android {
 
 dependencies {
 
-    // ✅ Use ONLY libs (Version Catalog)
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

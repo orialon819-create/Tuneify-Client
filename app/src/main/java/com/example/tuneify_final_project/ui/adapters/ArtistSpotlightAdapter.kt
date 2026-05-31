@@ -9,6 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.models.Artist
 
+/**
+ * Adapter for the Artist Spotlight RecyclerView.
+ * Connects a list of Artist objects to the RecyclerView and binds each artist's data
+ * (name, genre, photo) to the UI elements in item_artist_spotlight layout.
+ */
 class ArtistSpotlightAdapter(
     private val artists: List<Artist>,
     private val onClick: (Artist) -> Unit
@@ -20,10 +25,16 @@ class ArtistSpotlightAdapter(
         val tvGenre:  TextView  = view.findViewById(R.id.tv_artist_genre)
     }
 
+
+     //Input: parent: ViewGroup, viewType: Int
+    //Output: * VH(ViewHolder)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         VH(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_artist_spotlight, parent, false))
 
+    //Input: holder: VH, position: Int
+    //Output: none
     override fun onBindViewHolder(holder: VH, position: Int) {
         val artist = artists[position]
         holder.tvName.text  = artist.name
@@ -32,5 +43,7 @@ class ArtistSpotlightAdapter(
         holder.itemView.setOnClickListener { onClick(artist) }
     }
 
+    //Input: none
+    //Output: Int
     override fun getItemCount() = artists.size
 }

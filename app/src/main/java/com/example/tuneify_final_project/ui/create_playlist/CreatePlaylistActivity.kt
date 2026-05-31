@@ -34,9 +34,13 @@ import com.example.tuneify_final_project.ui.utils.NavigationUtils
 import com.example.tuneify_final_project.ui.utils.PlaybackUtils
 import com.example.tuneify_final_project.ui.adapters.SelectableSongAdapter
 
-
-
-
+/**
+ * Activity for creating a new playlist.
+ * Allows user to:
+ * - Search and select songs
+ * - Choose a playlist cover image (camera/gallery)
+ * - Save playlist to server
+ */
 class CreatePlaylistActivity : AppCompatActivity() {
 
     private lateinit var songAdapter: SelectableSongAdapter
@@ -112,6 +116,8 @@ class CreatePlaylistActivity : AppCompatActivity() {
         PlaybackUtils.updateUI(this)
     }
 
+    //Input: playlistId: Int, uri: Uri
+    //Output: void
     private fun showImagePickerOptions() {
         val options = arrayOf("Take Photo", "Choose from Gallery", "Cancel")
         AlertDialog.Builder(this)
@@ -132,6 +138,8 @@ class CreatePlaylistActivity : AppCompatActivity() {
             .show()
     }
 
+    //Input: bitmap: Bitmap
+    //Output: Uri
     private fun handleSavePlaylist() {
         val etPlaylistName = findViewById<EditText>(R.id.et_playlist_name)
         val playlistName = etPlaylistName.text.toString().trim()

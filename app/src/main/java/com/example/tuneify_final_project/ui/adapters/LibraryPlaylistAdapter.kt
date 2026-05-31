@@ -20,12 +20,17 @@ class LibraryPlaylistAdapter(
     private val onPlaylistSelected: (Playlist) -> Unit
 ) : RecyclerView.Adapter<LibraryPlaylistAdapter.ViewHolder>() {
 
+    /**
+     * ViewHolder that holds references to the UI elements of a single playlist item.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivCover: ImageView = view.findViewById(R.id.iv_playlist_item_cover)
         val tvName: TextView = view.findViewById(R.id.tv_playlist_name)
         val tvSubtitle: TextView = view.findViewById(R.id.tv_playlist_subtitle)
     }
 
+    //Input: parent: ViewGroup, viewType: Int
+    //Output: ViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_library_playlist, parent, false)
@@ -33,6 +38,8 @@ class LibraryPlaylistAdapter(
         return ViewHolder(view)
     }
 
+    //Input: holder: ViewHolder, position: Int
+    //Output: void
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val playlist = playlists[position]
         holder.tvName.text = playlist.name
@@ -54,5 +61,7 @@ class LibraryPlaylistAdapter(
         holder.itemView.setOnClickListener { onPlaylistSelected(playlist) }
     }
 
+    //Input: none
+    //Output: Int
     override fun getItemCount() = playlists.size
 }

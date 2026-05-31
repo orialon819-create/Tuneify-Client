@@ -8,13 +8,13 @@ data class AlbumData(
     val title: String,
     val year: String,
     val coverRes: Int,
-    val trackHighlights: List<String>   // 2-3 song titles shown on tap
+    val trackHighlights: List<String>
 )
 
 data class TrackData(
     val title: String,
-    val tag: String,        // e.g. "breakthrough hit"
-    val streamTitle: String // exact title as stored in your DB for streaming
+    val tag: String,
+    val streamTitle: String
 )
 
 data class FactData(

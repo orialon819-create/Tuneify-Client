@@ -18,6 +18,11 @@ import com.example.tuneify_final_project.ui.utils.PlaybackUtils
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * LibraryActivity displays the user's personal music library.
+ * It shows all user-created playlists in a 3-column grid layout,
+ * allows navigation to playlist details, and provides access to create new playlists.
+ */
 class LibraryActivity : AppCompatActivity() {
 
     private lateinit var rvPlaylists: RecyclerView
@@ -88,6 +93,8 @@ class LibraryActivity : AppCompatActivity() {
         }
     }
 
+    // Input: jsonString (String)
+    // Output: List<Playlist>
     private fun parsePlaylists(jsonString: String): List<Playlist> {
         val list = mutableListOf<Playlist>()
         try {

@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.NetworkConfig
 
+/**
+ * Screen for configuring server connection settings.
+ * Allows the user to manually set the backend server IP address.
+ */
 class ServerSettingsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

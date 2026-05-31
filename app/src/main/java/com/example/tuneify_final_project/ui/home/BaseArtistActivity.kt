@@ -123,7 +123,7 @@ abstract class BaseArtistActivity : AppCompatActivity() {
     }
 }
 
-// ── Album Carousel — tracks always visible, tap to highlight ─────────────────
+//Album Carousel — tracks always visible, tap to highlight
 
 class AlbumCarouselAdapter(
     private val albums: List<AlbumData>,
@@ -164,7 +164,7 @@ class AlbumCarouselAdapter(
     override fun getItemCount() = albums.size
 }
 
-// ── Fact Card Adapter ─────────────────────────────────────────────────────────
+//Fact Card Adapter
 
 class FactCardAdapter(
     private val facts: List<FactData>

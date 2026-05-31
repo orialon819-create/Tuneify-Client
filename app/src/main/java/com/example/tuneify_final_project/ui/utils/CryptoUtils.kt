@@ -11,12 +11,20 @@ import javax.crypto.spec.SecretKeySpec
 import java.security.MessageDigest
 import java.security.SecureRandom
 
+/**
+ * CryptoUtils provides cryptographic utilities for the application.
+ * It supports:
+ * - AES-GCM encryption and decryption (client-server secure messaging)
+ * - AES key derivation from shared secret (DH)
+ * - RSA public key loading
+ * - RSA signature verification
+ */
 object CryptoUtils {
 
-    // ─────────────────────────────────────────────
     // AES-GCM (ANDROID <-> PYTHON COMPATIBLE)
-    // ─────────────────────────────────────────────
 
+    // Input: plaintext (String), aesKey (ByteArray)
+    // Output: Map<String, String> (nonce + ciphertext)
     fun aesEncrypt(plaintext: String, aesKey: ByteArray): Map<String, String> {
         val nonce = ByteArray(12)
         SecureRandom().nextBytes(nonce)
@@ -36,6 +44,8 @@ object CryptoUtils {
         )
     }
 
+    // Input: data (Map<String, String>), aesKey (ByteArray)
+    // Output: decrypted plaintext (String)
     fun aesDecrypt(data: Map<String, String>, aesKey: ByteArray): String {
         val nonce = Base64.decode(data["nonce"], Base64.NO_WRAP)
         val ciphertext = Base64.decode(data["ciphertext"], Base64.NO_WRAP)
@@ -49,18 +59,19 @@ object CryptoUtils {
         return String(cipher.doFinal(ciphertext), Charsets.UTF_8)
     }
 
-    // ─────────────────────────────────────────────
-    // AES KEY DERIVATION (DH → AES-256)
-    // ─────────────────────────────────────────────
+    // AES KEY DERIVATION (DH to AES-256)
 
+    // Input: sharedSecret (ByteArray)
+    // Output: AES-256 key (ByteArray)
     fun deriveAesKey(sharedSecret: ByteArray): ByteArray {
         return MessageDigest.getInstance("SHA-256").digest(sharedSecret)
     }
-    // ─────────────────────────────────────────────
+
     // RSA PUBLIC KEY LOADER
-    // ─────────────────────────────────────────────
 
 
+    // Input: b64PemOrDer (String)
+    // Output: DHPublicKey
     fun loadDhPublicKey(b64PemOrDer: String): javax.crypto.interfaces.DHPublicKey {
         val decoded = Base64.decode(b64PemOrDer, Base64.NO_WRAP)
         val asString = String(decoded, Charsets.UTF_8)
@@ -82,6 +93,8 @@ object CryptoUtils {
             .generatePublic(X509EncodedKeySpec(derBytes)) as javax.crypto.interfaces.DHPublicKey
     }
 
+    // Input: pemString (String)
+    // Output: PublicKey (RSA)
     fun loadRsaPublicKey(pemString: String): PublicKey {
         val cleaned = pemString
             .replace("-----BEGIN PUBLIC KEY-----", "")
@@ -96,10 +109,10 @@ object CryptoUtils {
         return KeyFactory.getInstance("RSA").generatePublic(keySpec)
     }
 
-    // ─────────────────────────────────────────────
     // RSA SIGNATURE VERIFY
-    // ─────────────────────────────────────────────
 
+    // Input: data (String), signatureB64 (String), publicKey (PublicKey)
+    // Output: Boolean (true if signature valid, false otherwise)
     fun rsaVerify(
         data: String,
         signatureB64: String,

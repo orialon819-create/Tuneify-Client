@@ -9,6 +9,11 @@ import com.example.tuneify_final_project.ui.NetworkConfig
 import java.net.Socket
 import java.net.InetSocketAddress
 
+/**
+ * Splash screen that checks server connectivity before entering the app.
+ * If server is reachable - navigates to Login screen.
+ * If not reachable - navigates to Server Settings screen.
+ */
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

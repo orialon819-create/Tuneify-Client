@@ -19,6 +19,10 @@ import com.example.tuneify_final_project.ui.SocketManager
 import com.example.tuneify_final_project.ui.home.HomeActivity
 import org.json.JSONObject
 
+/**
+ * Login screen for Tuneify application.
+ * Handles user authentication, session storage, and navigation to Home screen.
+ */
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +94,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-
+    //Input: none
+    //Output: void
     private fun setupSignUpLink() {
         val tvGoToRegister = findViewById<TextView>(R.id.tv_go_to_register)
         val fullText = "Don't have an account? Sign up"
@@ -109,6 +114,8 @@ class LoginActivity : AppCompatActivity() {
         tvGoToRegister.movementMethod = LinkMovementMethod.getInstance()
     }
 
+    //Input: none
+    //Output: void
     private fun setupForgotPasswordLink() {
         val tvForgotPassword = findViewById<TextView>(R.id.tv_forgot_password)
         val text = "Forgot Password?"

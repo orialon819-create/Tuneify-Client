@@ -16,19 +16,28 @@ class RecentPlaylistAdapter(
     private val onClick: (Playlist) -> Unit
 ) : RecyclerView.Adapter<RecentPlaylistAdapter.VH>() {
 
+    /**
+     * ViewHolder that holds references to the UI elements of a single recent playlist item.
+     */
     class VH(view: View) : RecyclerView.ViewHolder(view) {
         val ivCover: ImageView = view.findViewById(R.id.iv_recent_cover)
         val tvTitle: TextView  = view.findViewById(R.id.tv_recent_title)
         val tvArtist: TextView = view.findViewById(R.id.tv_recent_artist)
     }
 
+    //Input: parent: ViewGroup, viewType: Int
+    //Output: VH(ViewHolder)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        VH(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_recent_playlist, parent, false))
+        VH(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_recent_playlist, parent, false)
+        )
 
+    //Input: holder: VH, position: Int
+    //Output: void
     override fun onBindViewHolder(holder: VH, position: Int) {
         val p = playlists[position]
-        holder.tvTitle.text  = p.name
+        holder.tvTitle.text = p.name
         holder.tvArtist.text = "Playlist"
 
         if (!p.coverUrl.isNullOrEmpty() && p.coverUrl != "null") {
@@ -45,5 +54,7 @@ class RecentPlaylistAdapter(
         holder.itemView.setOnClickListener { onClick(p) }
     }
 
+    //Input: none
+    //Output: Int
     override fun getItemCount() = playlists.size
 }

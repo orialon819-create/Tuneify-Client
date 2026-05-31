@@ -21,6 +21,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import org.json.JSONArray
 import org.json.JSONObject
 
+/**
+ * SearchActivity allows users to search for songs in real time.
+ * It communicates with the backend server, displays matching results,
+ * and allows users to play songs or add them to playlists.
+ */
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var rvResults: RecyclerView
@@ -29,6 +34,8 @@ class SearchActivity : AppCompatActivity() {
     private val searchResults = mutableListOf<Song>()
     private var currentUserId: Int = -1
 
+    // Input: Bundle? (saved instance state)
+    // Output: none
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -65,6 +72,8 @@ class SearchActivity : AppCompatActivity() {
         PlaybackUtils.updateUI(this)
     }
 
+    // Input: query (String)
+    // Output: none
     private fun performSearch(query: String) {
         val params = JSONObject().put("query", query)
         SocketManager.sendCommand("SEARCH_SONGS", params) { response ->
@@ -79,6 +88,8 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    // Input: song (Song)
+    // Output: none
     private fun openPlaylistMenu(song: Song) {
         val bottomSheet = BottomSheetDialog(this)
         val view = layoutInflater.inflate(R.layout.layout_add_to_playlist_sheet, null)
@@ -96,6 +107,8 @@ class SearchActivity : AppCompatActivity() {
         bottomSheet.show()
     }
 
+    // Input: jsonString (String)
+    // Output: List<Song>
     private fun parseSongsFromJson(jsonString: String): List<Song> {
         val list = mutableListOf<Song>()
         try {

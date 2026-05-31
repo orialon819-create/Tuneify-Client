@@ -12,6 +12,15 @@ import java.security.spec.X509EncodedKeySpec
 import javax.crypto.KeyAgreement
 import kotlin.concurrent.thread
 
+/**
+ * SocketManager handles all secure client-server communication.
+ * It is responsible for:
+ * - Establishing a TCP socket connection
+ * - Performing RSA + Diffie-Hellman key exchange
+ * - Deriving AES session keys
+ * - Encrypting and decrypting all requests/responses
+ * - Sending authenticated commands to the backend server
+ */
 object SocketManager {
 
     private var sessionToken: String? = null
@@ -25,6 +34,8 @@ object SocketManager {
         sessionToken = null
     }
 
+    // Input: command (String), parameters (JSONObject), onResponse ((String?) -> Unit)
+    // Output: none (async callback)
     fun sendCommand(
         command: String,
         parameters: JSONObject,
@@ -41,19 +52,14 @@ object SocketManager {
                 val writer = PrintWriter(OutputStreamWriter(socket.getOutputStream()), true)
                 val reader = BufferedReader(InputStreamReader(socket.getInputStream()))
 
-                // ──────────────── STEP 1 RSA ────────────────
                 val rsaRaw = reader.readLine() ?: throw Exception("No RSA packet")
                 val rsaJson = JSONObject(rsaRaw)
 
+                // STEP 1: Read RSA public key from server
                 val rsaPublicKey = CryptoUtils.loadRsaPublicKey(rsaJson.getString("public_key"))
-
-// Read DH parameters sent by server
-
 
                 Log.d(TAG, "RSA + DH params OK")
 
-                // ──────────────── STEP 2 DH ────────────────
-                // ──────────────── STEP 2 DH ────────────────
                 val p = java.math.BigInteger(
                     "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD1" +
                             "29024E088A67CC74020BBEA63B139B22514A08798E3404DD" +
@@ -70,6 +76,7 @@ object SocketManager {
                 val g = java.math.BigInteger.valueOf(2)
 
                 val dhParamSpec = javax.crypto.spec.DHParameterSpec(p, g)
+                // STEP 2: Generate Android DH key pair and send public key
                 val keyPairGen = KeyPairGenerator.getInstance("DH")
                 keyPairGen.initialize(dhParamSpec)
 
@@ -89,7 +96,7 @@ object SocketManager {
 
                 Log.d(TAG, "DH SENT")
 
-                // ──────────────── STEP 3 SERVER DH ────────────────
+                // STEP 3: Receive SERVER_DH and verify RSA signature
                 val dhRaw = reader.readLine() ?: throw Exception("No DH response")
                 Log.d(TAG, "DH RAW: $dhRaw")
 
@@ -104,9 +111,9 @@ object SocketManager {
 
                 if (!valid) throw Exception("RSA FAIL")
 
-                // ──────────────── STEP 4 SHARED SECRET ────────────────
                 val serverKey = CryptoUtils.loadDhPublicKey(serverDh)
 
+                // STEP 4: Compute shared secret AES key
                 val ka = KeyAgreement.getInstance("DH")
                 ka.init(keyPair.private)
                 ka.doPhase(serverKey, true)
@@ -115,7 +122,7 @@ object SocketManager {
 
                 Log.d(TAG, "AES READY")
 
-                // ──────────────── STEP 5 HANDSHAKE ────────────────
+                // STEP 5: Decrypt HANDSHAKE_OK - confirms AES key matches
                 val handshakeRaw = reader.readLine() ?: throw Exception("No handshake")
                 Log.d(TAG, "HANDSHAKE RAW: $handshakeRaw")
 
@@ -135,7 +142,7 @@ object SocketManager {
                     throw Exception("Handshake failed")
                 }
 
-                // ──────────────── STEP 6 COMMAND ────────────────
+
                 sessionToken?.let { parameters.put("session_token", it) }
 
                 val payload = JSONObject()
@@ -146,7 +153,6 @@ object SocketManager {
 
                 writer.println(JSONObject(encrypted).toString())
 
-                // ──────────────── STEP 7 RESPONSE ────────────────
                 val responseRaw = reader.readLine()
                 Log.d(TAG, "RESPONSE RAW: $responseRaw")
 
@@ -163,7 +169,7 @@ object SocketManager {
                 }
 
                 Log.d(TAG, "RESPONSE = $response")
-                Log.d(TAG, "FINAL RESPONSE = $response")  // add this line here
+                Log.d(TAG, "FINAL RESPONSE = $response")
 
 
                 android.os.Handler(android.os.Looper.getMainLooper()).post {

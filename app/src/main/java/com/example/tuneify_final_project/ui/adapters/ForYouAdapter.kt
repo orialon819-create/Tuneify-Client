@@ -17,23 +17,35 @@ data class ForYouPlaylist(
     val coverUrl: String?
 )
 
+/**
+ * Adapter for the "For You" playlists RecyclerView.
+ * Connects a list of ForYouPlaylist objects to the RecyclerView and displays playlist
+ * name, subtitle, and cover image (loaded from server using Glide or fallback image).
+ */
 class ForYouAdapter(
     private var items: List<ForYouPlaylist>,
     private val onClick: (ForYouPlaylist) -> Unit
 ) : RecyclerView.Adapter<ForYouAdapter.VH>() {
 
+    /**
+     * ViewHolder that holds references to the UI elements of a single playlist item.
+     */
     class VH(view: View) : RecyclerView.ViewHolder(view) {
         val ivCover: ImageView = view.findViewById(R.id.iv_for_you_cover)
         val tvName: TextView = view.findViewById(R.id.tv_for_you_name)
         val tvSubtitle: TextView = view.findViewById(R.id.tv_for_you_subtitle)
     }
 
+    //Input: parent: ViewGroup, viewType: Int
+    //Output: VH(ViewHolder)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_for_you_playlist, parent, false)
         return VH(view)
     }
 
+    //Input: holder: VH, position: Int
+    //Output: void
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
 
@@ -53,8 +65,16 @@ class ForYouAdapter(
         holder.itemView.setOnClickListener { onClick(item) }
     }
 
+    //Input: none
+    //Output: Int
     override fun getItemCount() = items.size
 
+    /**
+     * Updates the adapter data and refreshes the RecyclerView.
+     *
+     * Input: newItems: List<ForYouPlaylist>
+     * Output: void
+     */
     fun update(newItems: List<ForYouPlaylist>) {
         items = newItems
         notifyDataSetChanged()

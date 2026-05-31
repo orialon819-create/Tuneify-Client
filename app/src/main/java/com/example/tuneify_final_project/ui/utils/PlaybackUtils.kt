@@ -12,6 +12,15 @@ import com.example.tuneify_final_project.ui.NetworkConfig
 import com.example.tuneify_final_project.ui.models.Song
 import com.example.tuneify_final_project.ui.FullPlayerActivity
 
+
+/**
+ * PlaybackUtils manages the mini “Now Playing” UI across all activities.
+ * It:
+ * - Binds/unbinds UI listeners to MusicPlayerManager
+ * - Updates the mini player bar UI (title, artist, cover, play/pause)
+ * - Handles song playback from any screen
+ * - Opens the full player screen
+ */
 object PlaybackUtils {
 
     fun bind(activity: Activity) {
@@ -48,7 +57,7 @@ object PlaybackUtils {
         activity.findViewById<TextView>(R.id.tv_now_playing_artist)?.text =
             MusicPlayerManager.currentArtist
 
-        // Load album art into the bar thumbnail
+        // Load album cover into the bar thumbnail
         val thumb = activity.findViewById<ImageView>(R.id.iv_now_playing_thumb)
         if (thumb != null) {
             val coverUrl = MusicPlayerManager.currentCoverUrl

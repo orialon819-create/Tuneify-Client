@@ -12,12 +12,20 @@ import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.NetworkConfig
 import com.example.tuneify_final_project.ui.models.Song
 
+/**
+ * Adapter for search results song list.
+ * Displays songs with title, artist, and cover image,
+ * and handles click actions (play song / open more options).
+ */
 class SearchSongAdapter(
     private var songs: List<Song>,
     private val onSongClick: (Song) -> Unit,
     private val onMoreClick: (Song) -> Unit
 ) : RecyclerView.Adapter<SearchSongAdapter.SearchViewHolder>() {
 
+    /**
+     * ViewHolder that holds references to UI elements of a single song row.
+     */
     class SearchViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tv_song_title)
         val tvArtist: TextView = view.findViewById(R.id.tv_song_artist)
@@ -25,13 +33,16 @@ class SearchSongAdapter(
         val ivCover: ImageView = view.findViewById(R.id.iv_song_image)
     }
 
+    //Input: parent: ViewGroup, viewType: Int
+    //Output: SearchViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_song_search, parent, false)
         return SearchViewHolder(view)
     }
 
-    // FIX: Changed 'SongViewHolder' to 'SearchViewHolder'
+    //Input: holder: SearchViewHolder, position: Int
+    //Output: void
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         val song = songs[position]
         holder.tvTitle.text = song.title
@@ -48,19 +59,25 @@ class SearchSongAdapter(
             .centerCrop()
             .into(holder.ivCover)
 
-        // When the row is clicked, play the song
         holder.itemView.setOnClickListener {
             onSongClick(song)
         }
 
-        // When the three dots are clicked, open menu
         holder.btnMore.setOnClickListener {
             onMoreClick(song)
         }
     }
 
+    //Input: none
+    //Output: Int
     override fun getItemCount() = songs.size
 
+    /**
+     * Updates search results list and refreshes UI.
+     *
+     * Input: newList: List<Song>
+     * Output: void
+     */
     fun updateList(newList: List<Song>) {
         songs = newList
         notifyDataSetChanged()

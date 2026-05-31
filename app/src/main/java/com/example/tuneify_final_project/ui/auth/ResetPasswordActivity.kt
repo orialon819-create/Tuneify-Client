@@ -9,6 +9,10 @@ import com.example.tuneify_final_project.R
 import com.example.tuneify_final_project.ui.SocketManager
 import org.json.JSONObject
 
+/**
+ * Reset password screen.
+ * Handles verification of reset code and updating the user's password.
+ */
 class ResetPasswordActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +40,8 @@ class ResetPasswordActivity : AppCompatActivity() {
         }
     }
 
+    //Input: email: String, code: String, newPass: String
+    //Output: void
     private fun verifyAndReset(email: String, code: String, newPass: String) {
         // 1. Prepare the parameters
         val params = JSONObject().apply {
@@ -46,7 +52,6 @@ class ResetPasswordActivity : AppCompatActivity() {
 
         // 2. Use the SocketManager to send the command
         SocketManager.sendCommand("VERIFY_RESET", params) { response ->
-            // This part runs on the UI thread automatically thanks to SocketManager
             if (response != null && response.startsWith("OK")) {
                 Toast.makeText(this, "Password updated! Please login.", Toast.LENGTH_LONG).show()
                 finish() // Returns user to Login screen

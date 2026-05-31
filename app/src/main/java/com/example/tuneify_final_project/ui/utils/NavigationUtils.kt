@@ -10,6 +10,12 @@ import com.example.tuneify_final_project.ui.library.LibraryActivity
 import com.example.tuneify_final_project.ui.moodify.MoodifyActivity
 import com.example.tuneify_final_project.ui.search.SearchActivity
 
+/**
+ * NavigationUtils handles bottom navigation bar behavior across the app.
+ * It manages navigation between main screens:
+ * Home, Search, Create Playlist, Library, and Moodify.
+
+ */
 object NavigationUtils {
     fun setupBottomNav(activity: Activity) {
         // Find the icons in the current activity layout

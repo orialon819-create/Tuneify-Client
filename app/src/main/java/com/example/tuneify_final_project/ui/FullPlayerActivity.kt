@@ -13,6 +13,15 @@ import com.example.tuneify_final_project.ui.NetworkConfig
 import com.example.tuneify_final_project.ui.utils.MusicPlayerManager
 import org.json.JSONObject
 
+/**
+ * FullPlayerActivity is the full-screen music player UI.
+ * It provides:
+ * - Full song playback controls (play/pause/next/previous)
+ * - Like functionality using backend playlists
+ * - Live seek bar updates with time tracking
+ * - Swipe-to-close gesture
+ * - Synchronization with MusicPlayerManager state
+ */
 class FullPlayerActivity : AppCompatActivity() {
 
     private lateinit var ivCover: ImageView
@@ -32,6 +41,8 @@ class FullPlayerActivity : AppCompatActivity() {
     private var isLiked = false
     private var currentUserId = -1
 
+    // Input: savedInstanceState (Bundle?)
+    // Output: none
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_full_player)
@@ -85,7 +96,6 @@ class FullPlayerActivity : AppCompatActivity() {
         handler.removeCallbacksAndMessages(null)
     }
 
-    // ── MAIN FIX HERE ─────────────────────────────────────────────────────────
     private fun updateUI() {
 
         tvTitle.text  = MusicPlayerManager.currentSongTitle ?: ""
@@ -109,11 +119,9 @@ class FullPlayerActivity : AppCompatActivity() {
                 R.drawable.play_icon
         )
 
-        // 🔥 RESET LIKE STATE WHEN SONG CHANGES
         isLiked = false
         updateLikeIcon()
 
-        // 🔥 CHECK REAL LIKE STATE FROM DB
         val songId = MusicPlayerManager.currentPlaylist
             .getOrNull(MusicPlayerManager.currentIndex)?.id
 
@@ -131,8 +139,8 @@ class FullPlayerActivity : AppCompatActivity() {
             }
         }
     }
-
-    // ── NEW FUNCTION ─────────────────────────────────────────────────────────
+    // Input: songId (Int), likedPlaylistId (Int)
+    // Output: none
     private fun checkIfLiked(songId: Int, likedPlaylistId: Int) {
 
         val p = JSONObject()
@@ -147,7 +155,7 @@ class FullPlayerActivity : AppCompatActivity() {
         }
     }
 
-    // ── LIKE TOGGLE ──────────────────────────────────────────────────────────
+    // LIKE TOGGLE
     private fun toggleLike() {
         if (currentUserId == -1) return
 
@@ -197,7 +205,7 @@ class FullPlayerActivity : AppCompatActivity() {
         )
     }
 
-    // ── SEEK BAR ─────────────────────────────────────────────────────────────
+    // SEEK BAR
     private fun startSeekBarUpdates() {
         handler.post(object : Runnable {
             override fun run() {
@@ -218,7 +226,7 @@ class FullPlayerActivity : AppCompatActivity() {
         return "${sec / 60}:${(sec % 60).toString().padStart(2, '0')}"
     }
 
-    // ── SWIPE CLOSE ──────────────────────────────────────────────────────────
+    // SWIPE CLOSE
     private fun setupSwipeToClose() {
         var startY = 0f
 
