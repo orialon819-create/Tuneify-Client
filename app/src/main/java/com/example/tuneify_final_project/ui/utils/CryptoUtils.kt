@@ -35,7 +35,6 @@ object CryptoUtils {
 
         cipher.init(Cipher.ENCRYPT_MODE, key, spec)
 
-        // IMPORTANT: cipher output already includes authentication tag
         val encrypted = cipher.doFinal(plaintext.toByteArray(Charsets.UTF_8))
 
         return mapOf(
@@ -77,7 +76,7 @@ object CryptoUtils {
         val asString = String(decoded, Charsets.UTF_8)
 
         val derBytes = if (asString.contains("-----BEGIN PUBLIC KEY-----")) {
-            // it's a PEM — strip headers and decode the inner Base64
+
             val stripped = asString
                 .replace("-----BEGIN PUBLIC KEY-----", "")
                 .replace("-----END PUBLIC KEY-----", "")

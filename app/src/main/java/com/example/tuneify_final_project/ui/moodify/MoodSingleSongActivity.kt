@@ -62,8 +62,8 @@ class MoodSingleSongActivity : AppCompatActivity() {
     }
 
     private fun fetchAndPlay(mood: String) {
-        val params = JSONObject().put("mood", mood).put("count", 1)
-        SocketManager.sendCommand("GET_SONGS_BY_MOOD_LIST", params) { response ->
+        val params = JSONObject().put("mood", mood)
+        SocketManager.sendCommand("GET_SONG_BY_MOOD_LIST", params) { response ->
             if (response?.startsWith("OK|") != true) return@sendCommand
             val arr  = org.json.JSONArray(response.substringAfter("OK|"))
             if (arr.length() == 0) return@sendCommand

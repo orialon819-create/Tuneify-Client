@@ -18,6 +18,7 @@ import com.example.tuneify_final_project.ui.library.LibraryActivity
 import com.example.tuneify_final_project.ui.library.PlaylistDetailsActivity
 import com.example.tuneify_final_project.ui.models.Artist
 import com.example.tuneify_final_project.ui.models.Playlist
+import com.example.tuneify_final_project.ui.moodify.MoodifyActivity
 import com.example.tuneify_final_project.ui.utils.MusicPlayerManager
 import com.example.tuneify_final_project.ui.utils.NavigationUtils
 import com.example.tuneify_final_project.ui.utils.PlaybackUtils
@@ -70,6 +71,14 @@ class HomeActivity : AppCompatActivity() {
             startActivity(Intent(this, LibraryActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_REORDER_TO_FRONT
             })
+
+
+
+        }
+
+        findViewById<android.widget.LinearLayout>(R.id.btn_scan_mood).setOnClickListener {
+            val intent = Intent(this, MoodifyActivity::class.java)
+            startActivity(intent)
         }
 
         setupForYou()
